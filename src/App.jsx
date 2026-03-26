@@ -1,8 +1,16 @@
+import { Route, Routes } from "react-router-dom";
+import Login from "./Pages/Login";
+import Register from "./Pages/Register";
+import Loading from "./Pages/Loading";
 
 function App() {
   return (
     <>
-      <h1>hello</h1>
+      <Routes>
+        <Route path="/" element={<Loading />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/game" element={<Register />} />
+      </Routes>
     </>
   );
 }
