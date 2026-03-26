@@ -9,7 +9,7 @@ function App() {
       <Routes>
         <Route path="/" element={<Loading />} />
         <Route path="/login" element={<Login />} />
-        <Route path="/game" element={<Register />} />
+        <Route path="/register" element={<Register />} />
       </Routes>
     </>
   );
