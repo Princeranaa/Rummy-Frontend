@@ -1,7 +1,10 @@
 import React, { useState } from "react";
-import GamePlay from '../assets/Loading/Game-Play.png';
-import FocusLogo from '../assets/Loading/focus-group 2.png';
-import RummyPlay from '../assets/Loading/Frame 1261152773.png';
+import GamePlay from "../assets/Loading/Game-Play.png";
+import FocusLogo from "../assets/Loading/focus-group 2.png";
+import RummyPlay from "../assets/Loading/Frame 1261152773.png";
+import { toast } from "react-toastify";
+import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 const Register = () => {
   const [formData, setFormData] = useState({
@@ -11,19 +14,56 @@ const Register = () => {
     password: "",
   });
 
-  const handleSubmit = (e) => {
+  const navigate = useNavigate()
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
     console.log("Registering User:", formData);
-    // Send to your backend: { email, fullname: { firstname, lastname }, password }
+
+    try {
+      const response = await axios.post("http://localhost:5000/api/v1/register", {
+        email: formData.email,
+        fullname: {
+          firstname: formData.firstname,
+          lastname: formData.lastname,
+        },
+        password: formData.password,
+      });
+
+      toast.success(response.data.message || "User registered successfully!");
+      navigate("/VerifyOtp")  
+
+      setFormData({
+        firstname: "",
+        lastname: "",
+        email: "",
+        password: "",
+      });
+    } catch (error) {
+      console.log("something went wrong", error)
+      if (error.response) {
+        // Server-side error
+        toast.error(
+          error.response.data.message ||
+            "Registration failed. Please try again.",
+        );
+      } else {
+        // Network or other error
+        toast.error("An error occurred. Please try again later.");
+      }
+    }
   };
 
   return (
     <div className="relative flex items-center justify-center w-full min-h-screen overflow-hidden bg-[#064e3b] font-sans ">
-      
       {/* 1. Background Pattern */}
-      <div 
+      <div
         className="absolute inset-0 z-0 opacity-30"
-        style={{ backgroundImage: `url(${GamePlay})`, backgroundSize: 'cover', backgroundPosition: 'center' }}
+        style={{
+          backgroundImage: `url(${GamePlay})`,
+          backgroundSize: "cover",
+          backgroundPosition: "center",
+        }}
       />
 
       {/* 2. Orientation Warning (Same as Loading) */}
@@ -34,11 +74,18 @@ const Register = () => {
 
       {/* 3. Main Container */}
       <div className="z-10 flex flex-col md:flex-row items-center justify-between w-full max-w-6xl px-6 md:px-12 py-10 gap-10">
-        
         {/* Left Side: Branding */}
         <div className="flex flex-col items-center justify-center w-full md:w-1/2 space-y-6">
-          <img src={FocusLogo} alt="Logo" className="w-24 md:w-40 drop-shadow-2xl animate-pulse" />
-          <img src={RummyPlay} alt="Rummy Title" className="w-64 md:w-96 object-contain" />
+          <img
+            src={FocusLogo}
+            alt="Logo"
+            className="w-24 md:w-40 drop-shadow-2xl animate-pulse"
+          />
+          <img
+            src={RummyPlay}
+            alt="Rummy Title"
+            className="w-64 md:w-96 object-contain"
+          />
           <p className="text-yellow-500 font-black italic tracking-widest text-lg hidden md:block">
             JOIN THE ULTIMATE TABLE
           </p>
@@ -49,7 +96,7 @@ const Register = () => {
           <h2 className="text-white text-2xl font-black italic mb-6 text-center tracking-wide">
             CREATE ACCOUNT
           </h2>
-          
+
           <form onSubmit={handleSubmit} className="space-y-4">
             {/* Name Row */}
             <div className="flex gap-3">
@@ -58,7 +105,9 @@ const Register = () => {
                   type="text"
                   placeholder="First Name"
                   className="w-full bg-black text-white border border-cyan-400/50 rounded-xl px-4 py-3 outline-none focus:ring-2 focus:ring-cyan-500 transition-all placeholder:text-gray-500 shadow-lg"
-                  onChange={(e) => setFormData({...formData, firstname: e.target.value})}
+                  onChange={(e) =>
+                    setFormData({ ...formData, firstname: e.target.value })
+                  }
                   required
                 />
               </div>
@@ -67,7 +116,9 @@ const Register = () => {
                   type="text"
                   placeholder="Last Name"
                   className="w-full bg-black text-white border border-cyan-400/50 rounded-xl px-4 py-3 outline-none focus:ring-2 focus:ring-cyan-500 transition-all placeholder:text-gray-500 shadow-lg"
-                  onChange={(e) => setFormData({...formData, lastname: e.target.value})}
+                  onChange={(e) =>
+                    setFormData({ ...formData, lastname: e.target.value })
+                  }
                   required
                 />
               </div>
@@ -78,7 +129,9 @@ const Register = () => {
               type="email"
               placeholder="Email Address"
               className="w-full bg-black text-white border border-cyan-400/50 rounded-xl px-4 py-3 outline-none focus:ring-2 focus:ring-cyan-500 transition-all placeholder:text-gray-500 shadow-lg"
-              onChange={(e) => setFormData({...formData, email: e.target.value})}
+              onChange={(e) =>
+                setFormData({ ...formData, email: e.target.value })
+              }
               required
             />
 
@@ -87,7 +140,9 @@ const Register = () => {
               type="password"
               placeholder="Set Password"
               className="w-full bg-black text-white border border-cyan-400/50 rounded-xl px-4 py-3 outline-none focus:ring-2 focus:ring-cyan-500 transition-all placeholder:text-gray-500 shadow-lg"
-              onChange={(e) => setFormData({...formData, password: e.target.value})}
+              onChange={(e) =>
+                setFormData({ ...formData, password: e.target.value })
+              }
               required
             />
 
@@ -107,9 +162,9 @@ const Register = () => {
             </button>
 
             <div className="text-center mt-4">
-              <button 
-                type="button" 
-                onClick={() => window.location.href='/login'}
+              <button
+                type="button"
+                onClick={() => (window.location.href = "/login")}
                 className="text-white/60 text-xs hover:text-cyan-400 underline underline-offset-4 uppercase font-bold tracking-widest"
               >
                 Already have an account? Login
