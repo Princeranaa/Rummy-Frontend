@@ -14,24 +14,32 @@ const Register = () => {
     password: "",
   });
 
-  const navigate = useNavigate()
+  const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     console.log("Registering User:", formData);
 
     try {
-      const response = await axios.post("http://localhost:5000/api/v1/register", {
-        email: formData.email,
-        fullname: {
-          firstname: formData.firstname,
-          lastname: formData.lastname,
+      const response = await axios.post(
+        "http://localhost:5000/api/v1/register",
+        {
+          email: formData.email,
+          fullname: {
+            firstname: formData.firstname,
+            lastname: formData.lastname,
+          },
+          password: formData.password,
         },
-        password: formData.password,
-      });
+        {
+          withCredentials: true,
+        },
+      );
 
       toast.success(response.data.message || "User registered successfully!");
-      navigate("/VerifyOtp")  
+      navigate("/VerifyOtp", {
+        state: { email: formData.email },
+      });
 
       setFormData({
         firstname: "",
@@ -40,7 +48,7 @@ const Register = () => {
         password: "",
       });
     } catch (error) {
-      console.log("something went wrong", error)
+      console.log("something went wrong", error);
       if (error.response) {
         // Server-side error
         toast.error(
@@ -55,10 +63,10 @@ const Register = () => {
   };
 
   return (
-    <div className="relative flex items-center justify-center w-full min-h-screen overflow-hidden bg-[#064e3b] font-sans ">
+    <div className="relative flex items-center justify-center w-full min-h-screen overflow-hidden font-sans">
       {/* 1. Background Pattern */}
       <div
-        className="absolute inset-0 z-0 opacity-30"
+        className="absolute inset-0 z-0"
         style={{
           backgroundImage: `url(${GamePlay})`,
           backgroundSize: "cover",
@@ -92,7 +100,7 @@ const Register = () => {
         </div>
 
         {/* Right Side: Registration Form */}
-        <div className="w-full md:w-1/2 max-w-md bg-black/40 backdrop-blur-md p-8 rounded-3xl border border-white/10 shadow-2xl">
+        <div className="w-full md:w-1/2 max-w-md">
           <h2 className="text-white text-2xl font-black italic mb-6 text-center tracking-wide">
             CREATE ACCOUNT
           </h2>
