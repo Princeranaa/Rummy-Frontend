@@ -4,6 +4,8 @@ import Register from "./Pages/Register";
 import Loading from "./Pages/Loading";
 import VerifyOTP from "./Pages/VerifyOtp";
 import ProtectedRoute from "./Private/ProtectedRoute";
+import GameType from "./GamesLobbys/GameType";
+import NotFoundPage from "./Pages/NotFoundPage";
 
 function App() {
   return (
@@ -15,13 +17,13 @@ function App() {
         <Route path="/register" element={<Register />} />
         <Route path="/VerifyOtp" element={<VerifyOTP />} />
 
-        {/*  Protected Routes Group */}
+        {/* protected routes */}
         <Route element={<ProtectedRoute />}>
-          <Route path="/dashboard" element={<Dashboard />} />
-          {/* <Route path="/profile" element={<Profile />} />
-        <Route path="/game" element={<Game />} />
-        <Route path="/table/:id" element={<GameTable />} /> */}
+          <Route path="/game" element={<GameType />} />
         </Route>
+
+        {/* 404 */}
+        <Route path="*" element={<NotFoundPage/>} />
       </Routes>
     </>
   );
