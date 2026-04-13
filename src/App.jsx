@@ -20,10 +20,11 @@ function App() {
         {/* protected routes */}
         <Route element={<ProtectedRoute />}>
           <Route path="/game" element={<GameType />} />
+          {/* <Route path="/dashboard" element={<GameType />} /> */}
         </Route>
 
         {/* 404 */}
-        <Route path="*" element={<NotFoundPage/>} />
+        <Route path="*" element={<NotFoundPage />} />
       </Routes>
     </>
   );

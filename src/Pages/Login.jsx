@@ -20,7 +20,7 @@ const Login = () => {
       });
       if (response.status === 200) {
         toast.success(response.data.message || "Login successful");
-        navigate("/dashboard");
+        navigate("/game");
       }
     } catch (err) {
       toast.error(err.response?.data?.message || "Invalid email or password");

@@ -77,14 +77,6 @@ const NotFoundPage = () => {
 
   return (
     <div className="min-h-screen bg-[#020617] overflow-hidden flex items-center justify-center relative font-sans">
-      {/* 🌌 Dynamic Ambient Glow Layer */}
-      {/* <div className="absolute inset-0 z-0">
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-500px  h-500px bg-blue-600/20 rounded-full blur-[120px]" />
-        <div className="absolute top-1/4 left-1/3 w-300 h-300 bg-purple-600/10 rounded-full blur-[100px]" />
-      </div> */}
-
-      {/* ================= BACKGROUND IMAGE ================= */}
-      {/* 👉 REPLACE this URL with your own image */}
       <div
         className="absolute inset-0 bg-cover bg-center bg-no-repeat scale-105"
         style={{
@@ -95,7 +87,6 @@ const NotFoundPage = () => {
         }}
       />
 
-      {/* 🎴 Card Layers */}
       <div className="absolute inset-0 pointer-events-none">
         {/* Background Layer */}
         {Array.from({ length: 8 }).map((_, i) => (
@@ -181,18 +172,7 @@ const NotFoundPage = () => {
           <motion.button
             whileHover={{ scale: 1.05, y: -2 }}
             whileTap={{ scale: 0.95 }}
-            className="
-              px-6 py-5 
-              rounded-xl 
-              text-white font-semibold
-              bg-white/5 
-              backdrop-blur-md 
-              border border-white/20 
-              shadow-md shadow-black/20
-              hover:bg-white/10 
-              hover:border-white/40
-              transition-all duration-300
-            "
+            className="px-6 py-5 rounded-xl text-white font-semiboldbg-white/5 backdrop-blur-md border border-white/20 shadow-md shadow-black/20hover:bg-white/10 hover:border-white/40transition-all duration-300"
           >
             REPORT BUG
           </motion.button>

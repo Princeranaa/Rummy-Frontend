@@ -54,7 +54,7 @@ const VerifyOTP = () => {
 
       if (response.status === 200) {
         console.log("Verified!", response.data.user);
-        navigate("/dashboard");
+        navigate("/game");
       }
     } catch (err) {
       const msg =

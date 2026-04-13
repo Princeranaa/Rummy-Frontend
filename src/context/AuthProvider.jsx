@@ -9,19 +9,21 @@ function AuthProvider({ children }) {
 
   const fetchProfile = async () => {
     try {
-      const res = await axios.get("http://localhost:5000/api/v1/profile");
+      const res = await axios.get("http://localhost:5000/api/v1/profile", {
+        withCredentials: true,
+      });
       setUser(res.data);
     } catch (err) {
+      console.log("PROFILE ERROR:", err);
       setUser(null);
     } finally {
       setLoading(false);
     }
   };
 
-  useEffect(()=>{
-    fetchProfile()
-  },[])
-
+  useEffect(() => {
+    fetchProfile();
+  }, []);
 
   return (
     <AuthContext.Provider value={{ user, setUser, loading }}>
