@@ -1,5 +1,6 @@
 import { createContext, useContext, useEffect, useState } from "react";
-import axios from "axios";
+import api from "../Utils/axios";
+ 
 
 const AuthContext = createContext();
 
@@ -9,7 +10,7 @@ function AuthProvider({ children }) {
 
   const fetchProfile = async () => {
     try {
-      const res = await axios.get("http://localhost:5000/api/v1/profile", {
+      const res = await api.get("/api/v1/profile", {
         withCredentials: true,
       });
       setUser(res.data);

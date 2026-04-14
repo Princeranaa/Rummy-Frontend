@@ -3,23 +3,28 @@ import GamePlay from "../assets/Loading/Game-Play.png";
 import FocusLogo from "../assets/Loading/focus-group 2.png";
 import RummyPlay from "../assets/Loading/Frame 1261152773.png";
 import { useNavigate } from "react-router-dom";
-import axios from "axios";
+
+import api from "../Utils/axios";
 import { toast } from "react-toastify";
+import { useAuth } from "../context/AuthProvider";
 
 const Login = () => {
   const navigate = useNavigate();
   const [formData, setFormData] = useState({ email: "", password: "" });
   const [loading, setLoading] = useState(false);
+  const { setUser } = useAuth();
 
   const handleLogin = async (e) => {
     e.preventDefault();
     setLoading(true);
     try {
-      const response = await axios.post("http://localhost:5000/api/v1/login", formData, {
+      const response = await api.post("/api/v1/login", formData, {
         withCredentials: true,
       });
       if (response.status === 200) {
         toast.success(response.data.message || "Login successful");
+        setUser(response.data.user);
+
         navigate("/game");
       }
     } catch (err) {

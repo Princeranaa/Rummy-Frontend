@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
-import axios from "axios";
+
 import GamePlay from "../assets/Loading/Game-Play.png";
 import FocusLogo from "../assets/Loading/focus-group 2.png";
+import api from "../Utils/axios";
 
 const VerifyOTP = () => {
   const navigate = useNavigate();
@@ -41,8 +42,8 @@ const VerifyOTP = () => {
     }
 
     try {
-      const response = await axios.post(
-        "http://localhost:5000/api/v1/verifyOtp",
+      const response = await api.post(
+        "/api/v1/verifyOtp",
         {
           email: email,
           otp: otpString,

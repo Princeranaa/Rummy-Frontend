@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import axios from "axios"; // 1. Ensure axios is imported
+import api from "../Utils/axios";
 
 // Assets
 import GamePlayBg from "../assets/Loading/Game-Play.png";
@@ -14,9 +14,6 @@ const GameType = () => {
   const [loading, setLoading] = useState(false);
   const [isPortrait, setIsPortrait] = useState(false);
 
-  // Set your Backend URL here
-  const API_URL = "http://localhost:5000";
-
   useEffect(() => {
     const check = () => setIsPortrait(window.innerHeight > window.innerWidth);
     check();
@@ -27,9 +24,8 @@ const GameType = () => {
   const callGameAPI = async (endpoint, body) => {
     setLoading(true);
     try {
-      // 2. Added full URL and corrected axios configuration
-      const response = await axios.post(
-        `${API_URL}/api/game/${endpoint}`,
+      const response = await api.post(
+        `/api/game/${endpoint}`,
         body,
         {
           withCredentials: true,

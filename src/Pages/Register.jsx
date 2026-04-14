@@ -3,8 +3,9 @@ import GamePlay from "../assets/Loading/Game-Play.png";
 import FocusLogo from "../assets/Loading/focus-group 2.png";
 import RummyPlay from "../assets/Loading/Frame 1261152773.png";
 import { toast } from "react-toastify";
-import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import api from '../../src/Utils/axios';
+
 
 const Register = () => {
   const [formData, setFormData] = useState({
@@ -21,8 +22,8 @@ const Register = () => {
     console.log("Registering User:", formData);
 
     try {
-      const response = await axios.post(
-        "http://localhost:5000/api/v1/register",
+      const response = await api.post(
+        "/api/v1/register",
         {
           email: formData.email,
           fullname: {
