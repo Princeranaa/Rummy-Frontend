@@ -4,8 +4,7 @@ import FocusLogo from "../assets/Loading/focus-group 2.png";
 import RummyPlay from "../assets/Loading/Frame 1261152773.png";
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
-import api from '../../src/Utils/axios';
-
+import api from "../../src/Utils/axios";
 
 const Register = () => {
   const [formData, setFormData] = useState({
